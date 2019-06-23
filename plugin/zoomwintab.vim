@@ -1,86 +1,105 @@
-" zoomwintab.vim - simple zoom window vim
-" Maintainer: Dmitry "troydm" Geurkov <d.geurkov@gmail.com>
-" Version: 0.1
-" Description: zoomwintab.vim is a simple zoom window plugin
-" that uses tabs feature to zoom into a window inspired by ZoomWin
-" Last Change: 11 February, 2013
-" License: Vim License (see :help license)
-" Website: https://github.com/troydm/zoomwintab.vim
+" ZoomWinTab - Simple plugin to zoom windows
 "
-" See zoomwintab.vim for help.  This can be accessed by doing:
-" :help zoomwintab
+" Maintainer:    Robert Audi
+" Author:        Dmitry "troydm" Geurkov <d.geurkov@gmail.com>
+" Version:       0.1
+" Description:   ZoomWinTab is a simple plugin to zoom windows using tabs.
+" Last Change:   2019-06-23
+" License:       Vim License (see :help license)
+" Website:       https://github.com/RobertAudi/ZoomWinTab
+
+if exists('g:loaded_ZoomWinTab') || &cp || v:version < 704
+  finish
+endif
+let g:loaded_ZoomWinTab = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
 
-" options {{{
-if !exists("g:zoomwintab_hidetabbar")
-    let g:zoomwintab_hidetabbar = 1
+" Options {{{
+" ------------------------------------------------------------------------------
+
+if !exists('g:ZoomWinTabHideTabBar')
+  let g:ZoomWinTabHideTabBar = 1
 endif
-" }}}
 
+" ------------------------------------------------------------------------------ }}}
 
-" functions {{{1
-" ZoomWinTabIn {{{2
-function! ZoomWinTabIn()
-    if exists('*getcmdwintype') && getcmdwintype() != ''
-        echo 'No zoom in command line window'
-        return
-    endif
-    if exists('t:zoomwintab')
-        echo 'Already zoomed in'
-        return
-    endif
-    if winnr('$') == 1
-        echo 'Already only one window'
-        return
-    endif
-    let bufn = bufnr('%')
-    let tabpage = tabpagenr()
-    let swbuf = &switchbuf
-    set switchbuf&
-    exe 'tab sb '.bufn
-    let &switchbuf = swbuf
-    if tabpage != tabpagenr()
-        let t:zoomwintab = &stal
-        let t:zoomwintabnr = tabpage
-        if g:zoomwintab_hidetabbar == 1
-            set showtabline=0
-        endif
-    endif
-endfunction
+" Functions {{{
+" ------------------------------------------------------------------------------
 
-" ZoomWinTabClose {{{2
-function! ZoomWinTabOut() 
-    if !exists('t:zoomwintab')
-        echo 'Already zoomed out'
-        return
-    endif
-    let &stal = t:zoomwintab
-    let tabpage = t:zoomwintabnr
-    tabclose
-    if tabpagenr() != tabpage
-        exe 'tabnext '.tabpage
-    endif
-endfunction
+function! ZoomWinTabIn() " {{{
+  if exists('*getcmdwintype') && getcmdwintype() !=# ''
+    echo 'No zoom in command line window'
+    return
+  endif
 
-" ZoomWinTabToggle {{{2
-function! ZoomWinTabToggle()
-    if exists('t:zoomwintab')
-        call ZoomWinTabOut()
-    else
-        call ZoomWinTabIn()
-    endif
-endfunction
+  if exists('t:ZoomWinTab')
+    echo 'Already zoomed in'
+    return
+  endif
 
-" commands {{{1
-command! ZoomWinTabIn call ZoomWinTabIn()
-command! ZoomWinTabOut call ZoomWinTabOut()
+  if winnr('$') == 1
+    echo 'Already only one window'
+    return
+  endif
+
+  let l:bufnr = bufnr('%')
+  let l:tabpagenr = tabpagenr()
+  let l:switchbuf = &switchbuf
+
+  set switchbuf&
+
+  execute 'tab sb ' . l:bufnr
+
+  let &switchbuf = l:switchbuf
+
+  if l:tabpagenr != tabpagenr()
+    let t:ZoomWinTab = &showtabline
+    let t:ZoomWinTabNr = l:tabpagenr
+
+    if g:ZoomWinTabHideTabBar == 1
+      set showtabline=0
+    endif
+  endif
+endfunction " }}}
+
+function! ZoomWinTabOut() " {{{
+  if !exists('t:ZoomWinTab')
+    echo 'Already zoomed out'
+    return
+  endif
+
+  let &showtabline = t:ZoomWinTab
+  let l:tabpagenr = t:ZoomWinTabNr
+
+  tabclose
+
+  if tabpagenr() != l:tabpagenr
+    execute 'tabnext ' . l:tabpagenr
+  endif
+endfunction " }}}
+
+function! ZoomWinTabToggle() " {{{
+  if exists('t:ZoomWinTab')
+    call ZoomWinTabOut()
+  else
+    call ZoomWinTabIn()
+  endif
+endfunction " }}}
+
+" ------------------------------------------------------------------------------ }}}
+
+" Commands {{{
+" ------------------------------------------------------------------------------
+
+command! ZoomWinTabIn     call ZoomWinTabIn()
+command! ZoomWinTabOut    call ZoomWinTabOut()
 command! ZoomWinTabToggle call ZoomWinTabToggle()
 
-let g:zoomwintab_loaded = 1
+" ------------------------------------------------------------------------------ }}}
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
-" vim: set sw=4 sts=4 et fdm=marker:
+" vim: set sw=2 sts=2 et fdm=marker:
