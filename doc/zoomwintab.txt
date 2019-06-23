@@ -1,45 +1,72 @@
-zoomwintab.vim for Vim version 7.0+   Last change: 11 February, 2013
+*ZoomWinTab* Simple plugin to zoom windows
 
-Maintainer: Dmitry "troydm" Geurkov <d.geurkov@gmail.com>
-Version: 0.1
-Description: zoomwintab.vim is a simple zoom window plugin
-that uses tabs feature to zoom into a window inspired by ZoomWin
-Last Change: 11 February, 2013
-License: Vim License (see :help license)
-Website: https://github.com/troydm/zoomwintab.vim
+Maintainer:    Robert Audi
+Author:        Dmitry "troydm" Geurkov <d.geurkov@gmail.com>
+Version:       0.1
+Description:   ZoomWinTab is a simple plugin to zoom windows using tabs.
+Last Change:   2019-06-23
+License:       Vim License (see :help license)
+Website:       https://github.com/RobertAudi/ZoomWinTab
 
-Help on using zoomwintab.vim                                 *zoomwintab.vim*
+==============================================================================
+CONTENTS                                                   *ZoomWinTab-Contents*
 
-1. Introduction                    |zoomwintab.vim-intro|
-2. Configuration                   |zoomwintab.vim-configuration|
-2. Usage                           |zoomwintab.vim-usage|
+  1. Introduction                                             |ZoomWinTab-Intro|
+  2. Commands                                              |ZoomWinTab-Commands|
+  3. Functions                                            |ZoomWinTab-Functions|
+  4. Options                                                |ZoomWinTab-Options|
 
-============================================================================================
- 1. INTRODUCTION                                                      *zoomwintab.vim-intro*
+==============================================================================
+1. Introduction                                               *ZoomWinTab-Intro*
 
-zoomwintab.vim is a simple zoom window plugin that uses vim's tabs feature 
-to zoom into a window inspired by ZoomWin plugin
+ZoomWinTab is a simple plugin to zoom windows using tabs.
+Inspired by the ZoomWin plugin.
 
-============================================================================================
- 2. CONFIGURATION                                             *zoomwintab.vim-configuration*
+==============================================================================
+2. Commands                                                *ZoomWinTab-Commands*
 
-                                                                       *g:zoomwintab_hidetabbar*
-g:zoomwintab_hidetabbar (Default: 1)                                   
-    If enabled hides the tab bar
+                                                                 *:ZoomWinTabIn*
+:ZoomWinTabIn~
 
-============================================================================================
- 2. USAGE                                                             *zoomwintab.vim-usage*
+Zoom in the current window.
 
-                                                                         *ZoomWinTabToggle*
-:ZoomWinTabToggle
-    Toogle current window between zoom in and out
+                                                                *:ZoomWinTabOut*
+:ZoomWinTabOut~
 
-                                                                         *ZoomWinTabIn*
-:ZoomWinTabIn
-    Zoom in current window
+Zoom out the current window.
 
-                                                                         *ZoomWinTabOut*
-:ZoomWinTabOut
-    Zoom out current window
+                                                             *:ZoomWinTabToggle*
+:ZoomWinTabToggle~
 
- vim:tw=78:ts=8:ft=help:norl:
+Toogle between zoom in and zoom out.
+
+==============================================================================
+3. Functions                                              *ZoomWinTab-Functions*
+
+                                                                *ZoomWinTabIn()*
+ZoomWinTabIn()~
+
+Zoom in the current window.
+
+                                                               *ZoomWinTabOut()*
+ZoomWinTabOut()~
+
+Zoom out the current window.
+
+                                                            *ZoomWinTabToggle()*
+ZoomWinTabToggle()~
+
+Toogle between zoom in and zoom out.
+
+==============================================================================
+4. Options                                                  *ZoomWinTab-Options*
+
+                                                        *g:ZoomWinTabHideTabBar*
+g:ZoomWinTabHideTabBar~
+
+Values: 0 or 1
+Default: 1
+
+If enabled hides the tab bar.
+
+vim: set tw=78 ft=help :
