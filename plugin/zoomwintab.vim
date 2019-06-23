@@ -2,7 +2,7 @@
 "
 " Maintainer:    Robert Audi
 " Author:        Dmitry "troydm" Geurkov <d.geurkov@gmail.com>
-" Version:       0.1
+" Version:       0.2.0
 " Description:   ZoomWinTab is a simple plugin to zoom windows using tabs.
 " Last Change:   2019-06-23
 " License:       Vim License (see :help license)
